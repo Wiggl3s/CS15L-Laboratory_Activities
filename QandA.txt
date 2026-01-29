@@ -1,0 +1,38 @@
+
+ QUESTION TO ANSWER| - you can answer this through .txt and save it in the github along with your code
+1. Explain the overall design of your program and justify why you chose this particular class structure and set of user-defined methods.
+
+My program is a simple Library System built using one main class, `LibraryBook`, to represent a single book in the library. This class stores user-defined attributes (book id, title, author, availability status, and a borrow-history list). I chose this structure because it clearly demonstrates OOP fundamentals in a small, easy-to-follow design: the data (attributes) and the behaviors (methods) are bundled together in one object.
+
+The user-defined methods were chosen to match real library actions and to be meaningful operations:
+- `borrow(borrower)`: changes the book state from available to borrowed and records who borrowed it
+- `return_book()`: changes the state back to available and records the return
+- `get_status()`: returns a clean status string (“Available” / “Borrowed”) without exposing internal variables directly
+- `display_info()`: prints the book’s details in a readable format
+- `show_history()`: prints the borrow/return history so the program demonstrates state changes over time
+
+
+
+
+
+2. Describe how user input is handled in your program and discuss the role of exception handling (try–except) in preventing incorrect or unexpected behavior.
+
+User input is handled through helper functions that repeatedly prompt until valid input is entered:
+- `get_string_input(...)` ensures the user does not enter an empty value for required fields like Book ID, Title, Author, or Borrower name.
+- `get_choice_input(...)` ensures the user’s menu selection is one of the allowed options (1–6), preventing invalid menu commands from breaking the program.
+
+Exception handling (try–except) prevents incorrect input and runtime errors from crashing the program. For example:
+- The `LibraryBook` constructor raises `ValueError` if required details are missing, and `main()` catches it to stop creation of an invalid object.
+- `borrow()` and `return_book()` use try–except to catch invalid actions (borrowing a book that is already borrowed, or returning a book that is already available). Instead of crashing, the program prints an error message and continues running.
+- `KeyboardInterrupt` is handled in the input helper so if the user presses Ctrl+C, the program cancels safely instead of showing a long traceback.
+
+
+
+
+
+
+3. Identify one limitation of your current implementation and explain how it could be improved using additional OOP concepts or better error handling.
+
+One limitation is that the current program manages only ONE book object at a time, so it does not represent a full library with multiple books and multiple borrowers. A strong improvement would be adding a separate `Library` class that stores a collection of `LibraryBook` objects (for example in a dictionary keyed by book_id). This would apply an additional OOP concept: composition (a Library HAS many Books). It would also enable features like listing all books, searching by title/author, and borrowing by book ID.
+
+For better error handling, the program could also validate that Book IDs are unique (when multiple books exist), and store timestamps in the borrow history to make transaction logs clearer and more realistic.
