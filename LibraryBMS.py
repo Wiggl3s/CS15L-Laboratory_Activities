@@ -32,7 +32,7 @@ author = input("Author : ")
 publication_year = input("Publication Year : ")
 
 
-library_bms = Library(book_title, author, publication_year)
+library_bms = Book(book_title, author, publication_year)
 
 while True:
     print("\nPick an option: ")
